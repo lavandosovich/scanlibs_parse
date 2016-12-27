@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["lavandosovich"]
   spec.email         = ["ultraprolid@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Parse scanlibs.com content.}
+  spec.description   = %q{Gem is under construction. Be aware of changes.}
+  spec.homepage      = "https://github.com/lavandosovich/scanlibs_parse"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
