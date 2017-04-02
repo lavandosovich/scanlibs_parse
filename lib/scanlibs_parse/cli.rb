@@ -22,10 +22,12 @@ class ScanlibsParse::CLI
   end
 
   def self.print_book_info(book, index)
-    puts"#{index}. #{book.name[0..20]}... - #{book.author} - #{book.date} - #{book.pages}.p"
+    start_of_string = "#{index}. #{book.name}"[0..20]
+    puts"BOOK  #{start_of_string}... - #{book.author} - #{book.date} - #{book.pages}.p"
   end
 
   def self.print_video_info(video, index)
-    puts"#{index}. #{video.name[0..20]}... - #{video.format} - #{video.resolution} - #{video.duration} - #{video.skill_level}"
+    start_string = "#{index}. #{video.name}"[0..20]
+    puts"VIDEO #{start_string}... - #{video.format} - #{video.resolution} - #{video.duration} - #{video.skill_level}"
   end
 end
