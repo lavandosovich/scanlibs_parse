@@ -1,4 +1,4 @@
 require_relative 'concerns'
-class Book
+class Video
   include Concerns::Creatable
 end
