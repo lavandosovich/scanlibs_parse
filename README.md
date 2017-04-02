@@ -21,7 +21,7 @@ Or install it yourself as:
     $ gem install scanlibs_parse
 
 ## Usage
-Run `./bin/start`. This command will pop up pretty dull but working CLI.
+Run `./bin/start`. This command will pop up clunky but working CLI.
 
 It can:
 1. List first page books and videos
