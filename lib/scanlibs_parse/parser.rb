@@ -10,8 +10,7 @@ class ScanlibsParse::Parser
 
   def self.parse_params
     @data = []
-    @books_and_videos = raw_books_and_videos
-    @books_and_videos.each_with_index do |content, index|
+    raw_books_and_videos.each_with_index do |content, index|
       @data[index] = {type: nil, content: {}}
       @data[index][:content][:name] = content.css('.entry-title').text
       content_info = content.css('.entry-content')

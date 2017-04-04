@@ -1,5 +1,7 @@
 
 class ScanlibsParse::CLI
+  @@string_to_full = " "*10
+
   def self.call
     greetings
     list_content
@@ -22,12 +24,14 @@ class ScanlibsParse::CLI
   end
 
   def self.print_book_info(book, index)
-    start_of_string = "#{index}. #{book.name}"[0..20]
-    puts"BOOK  #{start_of_string}... - #{book.author} - #{book.date} - #{book.pages}.p"
+    start_of_string =
+        "#{index}. #{book.name}#{@@string_to_full}"[0..20]
+    puts"BOOK  #{start_of_string} - #{book.author} - #{book.date} - #{book.pages}.p"
   end
 
   def self.print_video_info(video, index)
-    start_string = "#{index}. #{video.name}"[0..20]
-    puts"VIDEO #{start_string}... - #{video.format} - #{video.resolution} - #{video.duration} - #{video.skill_level}"
+    start_string =
+        "#{index}. #{video.name}#{@@string_to_full}"[0..20]
+    puts"VIDEO #{start_string} - #{video.format} - #{video.resolution} - #{video.duration} - #{video.skill_level}"
   end
 end
