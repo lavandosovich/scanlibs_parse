@@ -10,8 +10,7 @@ class ScanlibsParse::Parser
 
   def self.parse_params
     @data = []
-    response = HTTParty.get(SCANLIBS_ADDRESS)
-    @books_and_videos = Nokogiri::HTML(response).css('.post-inner-content')
+    @books_and_videos = raw_books_and_videos
     @books_and_videos.each_with_index do |content, index|
       @data[index] = {type: nil, content: {}}
       @data[index][:content][:name] = content.css('.entry-title').text
@@ -23,6 +22,11 @@ class ScanlibsParse::Parser
       end
     end
     @data
+  end
+
+  def self.raw_books_and_videos
+    response = HTTParty.get(SCANLIBS_ADDRESS)
+    Nokogiri::HTML(response).css('.post-inner-content')
   end
 
   def self.form_content(params = self.parse_params)
@@ -39,13 +43,13 @@ class ScanlibsParse::Parser
   end
 
   def self.distinguish_info entry_content
-    book(entry_content) || video(entry_content)
+    valid_content = tame_content entry_content
+    book(valid_content) || video(valid_content)
   end
 
   def self.book content
-    valid_content = content.text
-    book = /Author: (.*)Pub Date: (\d*)ISBN: \d*-\d*Pages: (\d*)/.
-        match(valid_content)
+    book = /Author: (.*)Pub Date: (\d*)ISBN: .*Pages: (\d*)/.
+        match(content)
     return nil unless book
     [
       'book',
@@ -56,16 +60,19 @@ class ScanlibsParse::Parser
   end
 
   def self.video content
-    valid_content = content.text.tr("\n", ' ')
-    video = /\w* \| (\w*) \| AVC (.*) \| AAC .* \| (.*) \| (\d*) (MB|BG) \w* \| Skill level: (\w* \w*)/.
-        match(valid_content)
-    [
-      'video',
-      { format: video[1],
-        resolution: video[2],
-        duration: video[3],
-        size: [video[4], video[5]],
-        skill_level: video[6] }
-    ]
+    video =
+      [
+          'video',
+          { format: /\| (\w*) \| AVC/.match(content)[1],
+            resolution: /\| AVC (\d*.\d*)/.match(content)[1],
+            duration: /AAC .* \| (.*) \| .* eLearning/.match(content)[1],
+            size: /\| (.{1,5}) (GB|MB) eLearning/.match(content)[1..(-1)],
+            skill_level: /\| Skill level: (\w*\s?\w*)/.match(content)[1] }
+      ]
+    video
+  end
+
+  def self.tame_content content
+    content.text.tr("\n", ' ').tr("\t", '')
   end
 end
