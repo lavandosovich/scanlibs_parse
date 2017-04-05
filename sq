@@ -1,0 +1,15 @@
+
+[1mFrom:[0m /home/bruce/Documents/scanlibs_parse/lib/scanlibs_parse/cli.rb @ line 46 ScanlibsParse::CLI.menu:
+
+    [1;34m39[0m: [32mdef[0m [1;36mself[0m.[1;34mmenu[0m
+    [1;34m40[0m:   input = [1;36mnil[0m
+    [1;34m41[0m:   [32muntil[0m input == [31m[1;31m'[0m[31mexit[1;31m'[0m[31m[0m [32mdo[0m
+    [1;34m42[0m: 
+    [1;34m43[0m:     puts[31m[1;31m"[0m[31m[1;35m\n[0m[31mChoose interesting content:[1;31m"[0m[31m[0m
+    [1;34m44[0m:     print[31m[1;31m'[0m[31m> [1;31m'[0m[31m[0m
+    [1;34m45[0m:     input = gets.strip.to_i
+ => [1;34m46[0m:     binding.pry
+    [1;34m47[0m:     system([31m[1;31m"[0m[31mopen #{@vessel[input-1].link}[0m[31m[1;31m"[0m[31m[0m) [32munless[0m input == [31m[1;31m'[0m[31mexit[1;31m'[0m[31m[0m
+    [1;34m48[0m:   [32mend[0m
+    [1;34m49[0m: [32mend[0m
+

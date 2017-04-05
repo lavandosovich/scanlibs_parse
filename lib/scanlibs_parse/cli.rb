@@ -1,10 +1,11 @@
 
 class ScanlibsParse::CLI
-  @@string_to_full = " "*10
+  @@string_to_full = " "*15
 
   def self.call
     greetings
     list_content
+    menu
   end
 
   def self.list_content
@@ -25,13 +26,24 @@ class ScanlibsParse::CLI
 
   def self.print_book_info(book, index)
     start_of_string =
-        "#{index}. #{book.name}#{@@string_to_full}"[0..20]
-    puts"BOOK  #{start_of_string} - #{book.author} - #{book.date} - #{book.pages}.p"
+        "#{index}. #{book.name}#{@@string_to_full}"[0..30]
+    puts"BOOK  #{start_of_string}  -  #{book.date}  -  #{book.pages}.p"
   end
 
   def self.print_video_info(video, index)
     start_string =
-        "#{index}. #{video.name}#{@@string_to_full}"[0..20]
-    puts"VIDEO #{start_string} - #{video.format} - #{video.resolution} - #{video.duration} - #{video.skill_level}"
+        "#{index}. #{video.name}#{@@string_to_full}"[0..30]
+    puts"VIDEO #{start_string}  -  #{video.duration}  -  #{video.skill_level}"
+  end
+
+  def self.menu
+    input = nil
+    until input == 'exit' do
+      puts"\nChoose interesting content:"
+      puts"***Small notice: if u wanna to proceed after browsing some content...\n close opened web-browser"
+      print'> '
+      input = gets.strip.to_i
+      system("sensible-browser #{@vessel[input-1].link}") unless input == 'exit'
+    end
   end
 end

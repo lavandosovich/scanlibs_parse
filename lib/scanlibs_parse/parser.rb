@@ -14,6 +14,8 @@ class ScanlibsParse::Parser
       @data[index] = {type: nil, content: {}}
       @data[index][:content][:name] = content.css('.entry-title').text
       content_info = content.css('.entry-content')
+      link = content_info.css('a').attr('href').value
+      @data[index][:content][:link] = link
       parsed_info = distinguish_info(content_info)
       @data[index][:type] = parsed_info[0]
       parsed_info[1].each do |key, value|
