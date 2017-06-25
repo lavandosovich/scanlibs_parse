@@ -39,8 +39,11 @@ class ScanlibsParse::CLI
   def self.menu
     input = nil
     until input == 'exit' do
-      puts"\nChoose interesting content:"
-      puts"***Small notice: if u wanna to proceed after browsing some content...\n close opened web-browser"
+      puts "\nChoose interesting content:\n\n"
+      puts '*** Small notice:'
+      puts '***'
+      puts '***   if u wanna to proceed after browsing some content'
+      puts "***   close opened web-browser.\n\n"
       print'> '
       input = gets.strip.to_i
       system("sensible-browser #{@vessel[input-1].link}") unless input == 'exit'
