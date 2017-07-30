@@ -64,27 +64,12 @@ module ScanlibsParse
 
     def self.distinguish_info(entry_content)
       valid_content = tame_content entry_content
-      book(valid_content) || video(valid_content)
-    end
-
-    def self.book(content)
-      regexp = /Author: (.*)Pub Date: (\d*)ISBN: .*Pages: (\d*)/
-      ru_regexp = /Автор: (.*)Год: (\d*)ISBN: .*Страниц: (\d*)/
-
-      book = regexp.match(content) || ru_regexp.match(content)
-
-      return nil unless book
-
-      [
-          'book',
-          { date: book[2],
-            pages: book[3],
-            author: book[1] }
-      ]
-    end
-
-    def self.video(content)
-      VideoFormer.call content
+      is_a_video = valid_content.include?("Skill level")
+      if is_a_video
+        VideoFormer.call(valid_content)
+      else
+        BookFormer.call(valid_content)
+      end
     end
 
     def self.tame_content(content)

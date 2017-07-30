@@ -5,6 +5,8 @@ require_relative './scanlibs_parse/concerns'
 require_relative './scanlibs_parse/book'
 require_relative './scanlibs_parse/video'
 require_relative './scanlibs_parse/formers/video_former'
+require_relative './scanlibs_parse/formers/book_former'
+
 
 
 
