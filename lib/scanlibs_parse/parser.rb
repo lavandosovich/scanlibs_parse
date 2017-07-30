@@ -13,9 +13,9 @@ module ScanlibsParse
         form_content
       end
 
-      def parse_articles
+      def parse_articles(page = SCANLIBS_ADDRESS)
         articles = []
-        raw_books_and_videos.each_with_index do |content, index|
+        raw_books_and_videos(page).each_with_index do |content, index|
           articles[index] = parse_article(content)
         end
         articles
@@ -46,8 +46,8 @@ module ScanlibsParse
         content.attr('href').value
       end
 
-      def raw_books_and_videos
-        response = HTTParty.get(SCANLIBS_ADDRESS)
+      def raw_books_and_videos(page)
+        response = HTTParty.get(page)
         Nokogiri::HTML(response).css('.site-main').css('article')
       end
 

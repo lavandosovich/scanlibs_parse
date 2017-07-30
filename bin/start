@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require_relative "../lib/scanlibs_parse"
 
-ScanlibsParse::CLI.call
+ScanlibsParse::CLI::Starter.call
