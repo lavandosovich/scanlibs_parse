@@ -1,19 +1,17 @@
 module ScanlibsParse
   # Form Book from dirty text data
   class BookFormer
+    REGEXP    = /Author: (.*)Pub Date: (\d*)ISBN: .*Pages: (\d*)/
+    RU_REGEXP = /Автор: (.*)Год: (\d*)ISBN: .*Страниц: (\d*)/
     class << self
-      def call filth_book
-        regexp = /Author: (.*)Pub Date: (\d*)ISBN: .*Pages: (\d*)/
-        ru_regexp = /Автор: (.*)Год: (\d*)ISBN: .*Страниц: (\d*)/
+      def call(filth_book)
+        book = REGEXP.match(filth_book) || RU_REGEXP.match(filth_book)
 
-        book = regexp.match(filth_book) || ru_regexp.match(filth_book)
-
-        [
-            'book',
-            { date: book[2],
-              pages: book[3],
-              author: book[1] }
-        ]
+        { type: 'book',
+          content:
+              { date: book[2],
+                pages: book[3],
+                author: book[1] } }
       end
     end
   end

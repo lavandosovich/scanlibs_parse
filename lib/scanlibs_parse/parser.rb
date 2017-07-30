@@ -20,8 +20,8 @@ module ScanlibsParse
         @data[index][:content][:name] = get_name link
         @data[index][:content][:link] = get_link link
         parsed_info = distinguish_info(content.css('.entry-content'))
-        @data[index][:type] = parsed_info[0]
-        parsed_info[1].each do |key, value|
+        @data[index][:type] = parsed_info[:type]
+        parsed_info[:content].each do |key, value|
           @data[index][:content][key] = value
         end
       end
@@ -64,7 +64,7 @@ module ScanlibsParse
 
     def self.distinguish_info(entry_content)
       valid_content = tame_content entry_content
-      is_a_video = valid_content.include?("Skill level")
+      is_a_video = valid_content.include?('Skill level')
       if is_a_video
         VideoFormer.call(valid_content)
       else
