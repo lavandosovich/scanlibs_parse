@@ -34,7 +34,8 @@ module ScanlibsParse
           user_input = gets.strip
 
           case user_input
-          when '1' then main_controller.list_articles
+            when '1' then main_controller.list_articles
+            when '2' then main_controller.print_pages_amount
           when 'exit' then break
           else puts 'Unknown action'
           end
@@ -44,6 +45,7 @@ module ScanlibsParse
       def print_options
         puts "\nChoose option:\n\n"
         puts '1. Show articles (books and videos)'
+        puts '2. Get number of pages'
         print "\n>"
       end
 

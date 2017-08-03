@@ -9,11 +9,12 @@ module ScanlibsParse
     SCANLIBS_ADDRESS = 'https://scanlibs.com/'.freeze
 
     class << self
-      def content
-        form_content
+      def articles
+        form_articles
       end
 
-      def parse_articles(page = SCANLIBS_ADDRESS)
+      def parse_articles
+        page = SCANLIBS_ADDRESS
         articles = []
         raw_books_and_videos(page).each_with_index do |content, index|
           articles[index] = parse_article(content)
@@ -34,6 +35,11 @@ module ScanlibsParse
         article
       end
 
+      def number_of_pages
+        page = get_page SCANLIBS_ADDRESS
+        Nokogiri::HTML(page).css('.nav-links .page-numbers')[-2].text
+      end
+
       def link_data(content)
         content.css('.blog-item-wrap').css('a')
       end
@@ -47,13 +53,17 @@ module ScanlibsParse
       end
 
       def raw_books_and_videos(page)
-        response = HTTParty.get(page)
-        Nokogiri::HTML(response).css('.site-main').css('article')
+        page = get_page page
+        Nokogiri::HTML(page).css('.site-main').css('article')
       end
 
-      def form_content(articles = parse_articles)
+      def get_page(page)
+        HTTParty.get(page)
+      end
+
+      def form_articles
         content = []
-        articles.each do |article|
+        parse_articles.each do |article|
           product = if article[:type] == 'book'
                       Book.new(article[:content])
                     else
